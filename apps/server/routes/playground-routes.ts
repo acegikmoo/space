@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { PublishMessage } from "../queue/publisher";
 import { authMiddleware } from "../middleware/middleware";
-import { prisma } from "db";
+import prisma from "db";
 
 const router = Router();
 

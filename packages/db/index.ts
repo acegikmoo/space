@@ -1,15 +1,27 @@
-import { PrismaClient } from "./generated/prisma/client/client.js";
+import { PrismaClient } from "./generated/prisma/client.js";
+import { PrismaPg } from "@prisma/adapter-pg";
+
+if (!process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL is not set");
+}
+
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL,
+});
+
+const prismaClientSingleton = () => {
+  return new PrismaClient({ adapter });
+};
 
 declare global {
-  var prisma: PrismaClient | undefined;
+  var prismaGlobal: ReturnType<typeof prismaClientSingleton> | undefined;
 }
 
-export const prisma =
-  global.prisma ||
-  new PrismaClient({
-    accelerateUrl: process.env.DATABASE_URL as string,
-  });
+const prisma = globalThis.prismaGlobal ?? prismaClientSingleton();
 
 if (process.env.NODE_ENV !== "production") {
-  global.prisma = prisma;
+  globalThis.prismaGlobal = prisma;
 }
+
+
+export default prisma;
