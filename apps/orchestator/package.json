@@ -1,15 +1,15 @@
 {
-  "name": "orchestator",
-  "module": "index.ts",
-  "type": "module",
-  "private": true,
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "@kubernetes/client-node": "^1.4.0"
-  }
+	"name": "orchestator",
+	"module": "index.ts",
+	"type": "module",
+	"private": true,
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"@kubernetes/client-node": "^1.4.0"
+	}
 }
